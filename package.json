@@ -1,0 +1,19 @@
+{
+  "name": "@vmaimone/dimensional-input",
+  "version": "0.0.1",
+  "description": "vue js input for feet and inches",
+  "main": "dimensional-input.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmaimone/dimensional-input.git"
+  },
+  "author": "vin maimone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vmaimone/dimensional-input/issues"
+  },
+  "homepage": "https://github.com/vmaimone/dimensional-input#readme"
+}
