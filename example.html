@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  html {
+    font-size: 18px;
+  }
+  form {
+    width: 33vw;
+  }
+  button {
+    padding: .5rem .75rem;
+    background: transparent;
+    border-style: ridge;
+    outline: 0;
+  }
+  input {
+    box-shadow: none;
+    outline: 0;
+    border: 1px solid lightgray;
+    padding: .25rem;
+    margin: .25rem .5rem;
+  }
+  .text-right {
+    text-align: right;
+  }
+  form button:focus {
+    background: rgba(0,240,240, .25);
+  }
+  form input:focus {
+    border-color: rgba(0,240,240, 1);
+  }
+  .form-section {
+    width:49%;
+    display: inline-block;
+  }
+  .form-section label {
+    display: inline-block;
+    min-width: 3em;
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+    <form @submit.prevent="submitForm(itemWidth, itemLength)">
+      <fieldset>
+        <legend>Item Measured in Feet</legend>
+          <div class="form-section">
+            <label>width :</label>
+            <dimensional-input type="text" v-model="itemWidth"></dimensional-input>
+            <br>
+            <label>length :</label>
+            <dimensional-input type="text" v-model="itemLength"></dimensional-input>
+          </div>
+          <div class="form-section">
+            {{itemWidth}}' x {{itemLength}}'
+          </div>
+        <hr>
+        <div class="text-right">
+          <button type="button" @click.prevent="resetForm">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </fieldset>
+    </form>
+
+    <br>
+
+    <form @submit.prevent="submitForm(itemWidth2, itemLength2)">
+      <fieldset>
+        <legend>Item Measured in Inches</legend>
+          <div class="form-section">
+            <label>width :</label>
+            <dimensional-input type="text" units="in" v-model="itemWidth2"></dimensional-input>
+            <br>
+            <label>length :</label>
+            <dimensional-input type="text" units="in" v-model="itemLength2"></dimensional-input>
+          </div>
+          <div class="form-section">
+            {{itemWidth2}}" x {{itemLength2}}"
+          </div>
+        <hr>
+        <div class="text-right">
+          <button type="button" @click.prevent="resetForm">Reset</button>
+          <button type="submit" >Submit</button>
+        </div>
+      </fieldset>
+    </form>
+
+  </div>
+  <script src="https://unpkg.com/vue@2.1.6/dist/vue.js"></script>
+  <script src="./dimensional-input.js"></script>
+  <script>
+    Vue.component('dimensional-input', window.vDimensionalInput)
+    new Vue({
+      el: '#app',
+      data: {
+        itemWidth: 2.3,
+        itemLength: 0,
+        itemWidth2: 45,
+        itemLength2: 0,
+      },
+      methods: {
+        submitForm(width, length) {
+          console.log('form submitted!', { width, length })
+          this.resetForm()
+        },
+        resetForm() {
+          for(let key in this.$data) {
+            this[key] = 0
+          }
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
