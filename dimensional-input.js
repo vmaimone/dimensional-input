@@ -1,3 +1,25 @@
+const DIMENSIONAL_INPUT_WHITELIST = Object.freeze([
+  `0`,`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,
+  ` `,`'`,`"`,`.`,
+  `Backspace`,`Shift`,`Meta`,`Alt`,`Control`,`Enter`,`Tab`,
+  `ArrowLeft`,`ArrowRight`,`ArrowUp`,`ArrowDown`,
+])
+
+function isWhitelisted(key) {
+  return DIMENSIONAL_INPUT_WHITELIST.indexOf(key) > -1
+}
+
+function round(number, precision) {
+  let factor = Math.pow(10, precision);
+  let roundedTempNumber = Math.round(number * factor);
+  return roundedTempNumber / factor;
+}
+
+function toNumeric(string) {
+  let value = String(string || '').trim().replace(/('|"|\s)/g, '')
+  return Number(value) || 0
+}
+
 const vDimensionalInput = {
   name: 'dimension-input',
   template: `
@@ -73,28 +95,6 @@ const vDimensionalInput = {
       return round(value, this.precision || 5)
     }
   }
-}
-
-const DIMENSIONAL_INPUT_WHITELIST = Object.freeze([
-  `0`,`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,
-  ` `,`'`,`"`,`.`,
-  `Backspace`,`Shift`,`Meta`,`Alt`,`Control`,`Enter`,`Tab`,
-  `ArrowLeft`,`ArrowRight`,`ArrowUp`,`ArrowDown`,
-])
-
-function isWhitelisted(key) {
-  return DIMENSIONAL_INPUT_WHITELIST.indexOf(key) > -1
-}
-
-function round(number, precision) {
-  let factor = Math.pow(10, precision);
-  let roundedTempNumber = Math.round(number * factor);
-  return roundedTempNumber / factor;
-}
-
-function toNumeric(string) {
-  let value = String(string || '').trim().replace(/('|"|\s)/g, '')
-  return Number(value) || 0
 }
 
 if (typeof module !== 'undefined' && typeof require === 'function') {
