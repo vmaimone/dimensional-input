@@ -1,8 +1,8 @@
 {
   "name": "@vmaimone/dimensional-input",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vue js input for feet and inches",
-  "main": "dimensional-input.vue",
+  "main": "dimensional-input.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
