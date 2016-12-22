@@ -24,10 +24,10 @@ const vDimensionalInput = {
     return {
       local: this.value || '',
       DIMENSIONAL_INPUT_WHITELIST: Object.freeze([
-        `0`,`1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,
-        ` `,`'`,`"`,`.`,
-        `Backspace`,`Shift`,`Meta`,`Alt`,`Control`,`Enter`,`Tab`,
-        `ArrowLeft`,`ArrowRight`,`ArrowUp`,`ArrowDown`,
+        '0','1','2','3','4','5','6','7','8','9',
+        ' ','\'','"','.',
+        'Backspace','Shift','Meta','Alt','Control','Enter','Tab',
+        'ArrowLeft','ArrowRight','ArrowUp','ArrowDown',
       ])
     }
   },
