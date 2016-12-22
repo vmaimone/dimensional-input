@@ -1,14 +1,14 @@
 const vDimensionalInput = {
   name: 'dimension-input',
-  template: `
-    <input
-      type="text"
-      v-model="local"
-      @change="changed"
-      @keydown="keydown"
-      @input="input"
-      @blur="blur">
-  `,
+  template: '           \
+    <input              \
+      type="text"       \
+      v-model="local"   \
+      @change="changed" \
+      @keydown="keydown"\
+      @input="input"    \
+      @blur="blur">     \
+  ',
   props: {
     value: [String, Number],
     precision: {
@@ -75,8 +75,8 @@ const vDimensionalInput = {
         }
       } else {
         let parts = String(this.local).trim().split(' ')
-        let ft = parts.find(str => str.indexOf(`'`) > -1)
-        let inch = parts.find(str => str.indexOf(`"`) > -1)
+        let ft = parts.find(str => str.indexOf('\'') > -1)
+        let inch = parts.find(str => str.indexOf('"') > -1)
         return {
           feet: this.toNumeric(ft),
           inches: this.toNumeric(inch)
