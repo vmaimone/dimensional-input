@@ -1,4 +1,6 @@
-const vDimensionalInput = {
+'use strict'
+
+var vDimensionalInput = {
   name: 'dimension-input',
   template: '           \
     <input              \
@@ -20,74 +22,77 @@ const vDimensionalInput = {
       default: 'ft'
     }
   },
-  data() {
+  data: function data () {
     return {
       local: this.value || '',
       DIMENSIONAL_INPUT_WHITELIST: Object.freeze([
-        '0','1','2','3','4','5','6','7','8','9',
-        ' ','\'','"','.',
-        'Backspace','Shift','Meta','Alt','Control','Enter','Tab',
-        'ArrowLeft','ArrowRight','ArrowUp','ArrowDown',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ' ', "'", '"', '.',
+        'Backspace', 'Shift', 'Meta', 'Alt', 'Control', 'Enter', 'Tab',
+        'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
       ])
     }
   },
+
   watch: {
-    value(current, previous) {
+    value: function value (current, previous) {
       if (previous && !current) this.local = ''
     }
   },
   methods: {
-    keydown(event) {
+    keydown: function keydown (event) {
       if (!(event.metaKey || event.ctrlKey)) {
-        if(!this.isWhitelisted(event.key)) return event.preventDefault()
+        if (!this.isWhitelisted(event.key)) return event.preventDefault()
       }
     },
-    blur() {
+    blur: function blur () {
       this.local = this.converted
       return this.$emit('blur', this.local)
     },
-    changed() {
+    changed: function changed () {
       console.log('changed!')
       return this.$emit('input', this.converted)
     },
-    input() {
+    input: function input () {
       return this.$emit('input', this.converted)
     },
-    isWhitelisted(key) {
+    isWhitelisted: function isWhitelisted (key) {
       return this.DIMENSIONAL_INPUT_WHITELIST.indexOf(key) > -1
     },
-    round(number, precision) {
-      let factor = Math.pow(10, precision);
-      let roundedTempNumber = Math.round(number * factor);
-      return roundedTempNumber / factor;
+    round: function round (number, precision) {
+      var factor = Math.pow(10, precision)
+      var roundedTempNumber = Math.round(number * factor)
+      return roundedTempNumber / factor
     },
-    toNumeric(string) {
-      let value = String(string || '').trim().replace(/('|"|\s)/g, '')
+    toNumeric: function toNumeric (string) {
+      var value = String(string || '').trim().replace(/('|"|\s)/g, '')
       return Number(value) || 0
     }
   },
   computed: {
-    parts() {
+    parts: function parts () {
       if (!isNaN(this.local)) {
         return {
           feet: this.units === 'in' ? 0 : this.toNumeric(this.local),
           inches: this.units === 'ft' ? 0 : this.toNumeric(this.local)
         }
       } else {
-        let parts = String(this.local).trim().split(' ')
-        let ft = parts.find(str => str.indexOf('\'') > -1)
-        let inch = parts.find(str => str.indexOf('"') > -1)
+        var parts = String(this.local).trim().split(' ')
+        var ft = parts.find(function (str) {
+          return str.indexOf("'") > -1
+        })
+        var inch = parts.find(function (str) {
+          return str.indexOf('"') > -1
+        })
         return {
           feet: this.toNumeric(ft),
           inches: this.toNumeric(inch)
         }
       }
     },
-    converted() {
-      let dims = this.parts
-      let value = this.units == 'in'
-        ? (dims.feet*12 + dims.inches)
-        : (dims.feet + dims.inches/12)
+    converted: function converted () {
+      var dims = this.parts
+      var value = this.units == 'in' ? dims.feet * 12 + dims.inches : dims.feet + dims.inches / 12
       return this.round(value, this.precision || 5)
     }
   }
